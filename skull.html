@@ -1,0 +1,174 @@
+<html>
+<head>
+<title>binary clock</title>
+<script language="Javascript">
+<!--
+//
+// binary clock
+// 2010.08.08
+// jeff harlan
+// jeff dot harlan at yahoo dot com
+//
+// Copyright 2010 jeff harlan. All rights reserved.
+// 
+// Redistribution and use in source and binary forms, with or without modification, are
+// permitted provided that the following conditions are met:
+// 
+//    1. Redistributions of source code must retain the above copyright notice, this list of
+//       conditions and the following disclaimer.
+// 
+//    2. Redistributions in binary form must reproduce the above copyright notice, this list
+//       of conditions and the following disclaimer in the documentation and/or other materials
+//       provided with the distribution.
+// 
+// THIS SOFTWARE IS PROVIDED BY jeff harlan ``AS IS'' AND ANY EXPRESS OR IMPLIED
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+// FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL jeff harlan OR
+// CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+// SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+// ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+// NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+// ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+// 
+// The views and conclusions contained in the software and documentation are those of the
+// authors and should not be interpreted as representing official policies, either expressed
+// or implied, of jeff harlan.
+// 
+
+img0=new Image(); img0.src="blank-180x180.jpg";
+img1=new Image(); img1.src="skull-button-180x180.jpg";
+
+function toggle(x)
+{
+  document[x.name].src = ( document[x.name].src === img0.src ? img1.src : img0.src );
+}
+
+function on(x)
+{
+  document[x.name].src = img1.src;
+}
+
+function off(x)
+{
+  document[x.name].src = img0.src;
+}
+
+function displayBinary(p,b)
+{
+  var one = b.substring(3,4);
+  var two = b.substring(2,3);
+  var thr = b.substring(1,2);
+  var fou = b.substring(0,1);
+
+  var bit = "p" + p + "1";
+  document[bit].src = ( one === "0" ? img0.src: img1.src );
+  var bit = "p" + p + "2";
+  document[bit].src = ( two === "0" ? img0.src: img1.src );
+  var bit = "p" + p + "3";
+  document[bit].src = ( thr === "0" ? img0.src: img1.src );
+  var bit = "p" + p + "4";
+  document[bit].src = ( fou === "0" ? img0.src: img1.src );
+}
+
+function convertBinary(t)
+{
+  second_ones = t.substring(5,6);
+  second_tens = t.substring(4,5);
+  minute_ones = t.substring(3,4);
+  minute_tens = t.substring(2,3);
+  hour_ones   = t.substring(1,2);
+  hour_tens   = t.substring(0,1);
+
+  second_ones_binary = parseInt(second_ones).toString(2);
+  padded = pad( second_ones_binary, 4, "0" );
+  displayBinary(6,padded);
+
+  second_tens_binary = parseInt(second_tens).toString(2);
+  padded = pad( second_tens_binary, 4, "0" );
+  displayBinary(5,padded);
+
+  minute_ones_binary = parseInt(minute_ones).toString(2);
+  padded = pad( minute_ones_binary, 4, "0" );
+  displayBinary(4,padded);
+
+  minute_tens_binary = parseInt(minute_tens).toString(2);
+  padded = pad( minute_tens_binary, 4, "0" );
+  displayBinary(3,padded);
+
+  hour_ones_binary = parseInt(hour_ones).toString(2);
+  padded = pad( hour_ones_binary, 4, "0" );
+  displayBinary(2,padded);
+
+  hour_tens_binary = parseInt(hour_tens).toString(2);
+  padded = pad( hour_tens_binary, 4, "0" );
+  displayBinary(1,padded);
+}
+
+function pad(s,l,p)
+{
+  while( s.length < l ) s = p + s;
+  return s;
+}
+
+function clock()
+{
+  var d = new Date();
+  var h = d.getHours();
+  var m = d.getMinutes();
+  var s = d.getSeconds();
+
+  if( h < 10) h = "0" + h;
+  if( m < 10) m = "0" + m;
+  if( s < 10) s = "0" + s;
+  var t = h.toString() + m.toString() + s.toString();
+
+//  defaultStatus = t;
+  convertBinary(t);
+
+  setTimeout("clock()", 1000);
+}
+
+// -->
+</script>
+</head>
+<body onload="clock();">
+<div id=clock>
+<center><br>
+<h2>binary clock</h2>
+<table class=tc>
+ <tr>
+  <td><img src="blank-180x180.jpg" onMouseOver="toggle(this);" name="p14"></a></td>
+  <td><img src="blank-180x180.jpg" onMouseOver="toggle(this);" name="p24"></a></td>
+  <td><img src="blank-180x180.jpg" onMouseOver="toggle(this);" name="p34"></a></td>
+  <td><img src="blank-180x180.jpg" onMouseOver="toggle(this);" name="p44"></a></td>
+  <td><img src="blank-180x180.jpg" onMouseOver="toggle(this);" name="p54"></a></td>
+  <td><img src="blank-180x180.jpg" onMouseOver="toggle(this);" name="p64"></a></td>
+ </tr>
+ <tr>
+  <td><img src="blank-180x180.jpg" onMouseOver="toggle(this);" name="p13"></a></td>
+  <td><img src="blank-180x180.jpg" onMouseOver="toggle(this);" name="p23"></a></td>
+  <td><img src="blank-180x180.jpg" onMouseOver="toggle(this);" name="p33"></a></td>
+  <td><img src="blank-180x180.jpg" onMouseOver="toggle(this);" name="p43"></a></td>
+  <td><img src="blank-180x180.jpg" onMouseOver="toggle(this);" name="p53"></a></td>
+  <td><img src="blank-180x180.jpg" onMouseOver="toggle(this);" name="p63"></a></td>
+ </tr>
+ <tr>
+  <td><img src="blank-180x180.jpg" onMouseOver="toggle(this);" name="p12"></a></td>
+  <td><img src="blank-180x180.jpg" onMouseOver="toggle(this);" name="p22"></a></td>
+  <td><img src="blank-180x180.jpg" onMouseOver="toggle(this);" name="p32"></a></td>
+  <td><img src="blank-180x180.jpg" onMouseOver="toggle(this);" name="p42"></a></td>
+  <td><img src="blank-180x180.jpg" onMouseOver="toggle(this);" name="p52"></a></td>
+  <td><img src="blank-180x180.jpg" onMouseOver="toggle(this);" name="p62"></a></td>
+ </tr>
+ <tr>
+  <td><img src="blank-180x180.jpg" onMouseOver="toggle(this);" name="p11"></a></td>
+  <td><img src="blank-180x180.jpg" onMouseOver="toggle(this);" name="p21"></a></td>
+  <td><img src="blank-180x180.jpg" onMouseOver="toggle(this);" name="p31"></a></td>
+  <td><img src="blank-180x180.jpg" onMouseOver="toggle(this);" name="p41"></a></td>
+  <td><img src="blank-180x180.jpg" onMouseOver="toggle(this);" name="p51"></a></td>
+  <td><img src="blank-180x180.jpg" onMouseOver="toggle(this);" name="p61"></a></td>
+ </tr>
+</table>
+</body>
+</html>
